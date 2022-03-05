@@ -1,1 +1,1 @@
-# -multi-docker-prod-aws-linux2
+# multi-docker-prod-aws-linux2
