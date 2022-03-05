@@ -16,6 +16,7 @@ after_success:
   - docker build -t ${DOCKER_ID}/multi-server ./server
   - docker build -t ${DOCKER_ID}/multi-worker ./worker
   # Log in to the docker CLI
+  - echo "userid: ${DOCKER_ID} / token: ${DOCKER_PASSWORD}"
   - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_ID}" --password-stdin
   # Take those images and push them to docker hub
   - docker push ${DOCKER_ID}/multi-client
