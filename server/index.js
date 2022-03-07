@@ -9,6 +9,8 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+console.log("\nuser: "+keys.pgUser+"\nhost: "+keys.pgHost+"\ndb: "+keys.pgDatabase+"\npwd: "+keys.pgPassword );
+
 // Postgres Client Setup
 const { Pool } = require('pg');
 const pgClient = new Pool({
@@ -20,6 +22,7 @@ const pgClient = new Pool({
 });
 
 pgClient.on('connect', () => {
+  console.log("#########################> try to connect to Postgres");
   pgClient
     .query('CREATE TABLE IF NOT EXISTS values (number INT)')
     .catch((err) => console.log(err));
@@ -37,35 +40,47 @@ const redisPublisher = redisClient.duplicate();
 // Express route handlers
 
 app.get('/', (req, res) => {
+  console.log("#########################> Send Hi by request /");
   res.send('Hi');
 });
 
 app.get('/values/all', async (req, res) => {
+  console.log("#########################> PGSQL: SELECT * from values by request /values/all");
   const values = await pgClient.query('SELECT * from values');
 
   res.send(values.rows);
 });
 
 app.get('/values/current', async (req, res) => {
+  console.log("#########################> REDIS: GET ALL by request /values/current");
   redisClient.hgetall('values', (err, values) => {
     res.send(values);
   });
 });
 
 app.post('/values', async (req, res) => {
+  console.log("#########################> Post by request /values");
   const index = req.body.index;
-
+  console.log("#########################> index= "+index);
+  
   if (parseInt(index) > 40) {
     return res.status(422).send('Index too high');
   }
-
-  redisClient.hset('values', index, 'Nothing yet!');
-  redisPublisher.publish('insert', index);
-  pgClient.query('INSERT INTO values(number) VALUES($1)', [index]);
+  try {
+    console.log("#########################> Build for Redis");
+    redisClient.hset('values', index, 'Nothing yet!');
+    console.log("#########################> REDIS: Insert in cache");
+    redisPublisher.publish('insert', index);
+    console.log("#########################> PGSQL: Insert in DB");
+    pgClient.query('INSERT INTO values(number) VALUES($1)', [index]);
+    
+  } catch (err) {
+    console.log(err);
+  }
 
   res.send({ working: true });
 });
 
 app.listen(5000, (err) => {
-  console.log('Listening');
+  console.log('Listening on 5000');
 });
