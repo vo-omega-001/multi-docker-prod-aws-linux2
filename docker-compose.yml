@@ -1,11 +1,11 @@
 version: '3'
 services:
-  postgres:
-    image: 'postgres:latest'
-    environment:
-      - POSTGRES_PASSWORD=postgres_password
-  redis:
-    image: 'redis:latest'
+  #postgres:
+  #  image: 'postgres:latest'
+  #  environment:
+  #    - POSTGRES_PASSWORD=postgres_password
+  #redis:
+  #  image: 'redis:latest'
   nginx:
     depends_on:
       - api
