@@ -1,6 +1,12 @@
 const keys = require('./keys');
 const redis = require('redis');
 
+console.log("\n\n###############################################################");
+console.log("###] MULTI-DOCKER-WORKER Configuration:[###");
+console.log("###########################################");
+console.log("\nHost: "+keys.redisHost+"\nPort: "+keys.redisPort+"\n");
+console.log("###############################################################\n\n");
+
 const redisClient = redis.createClient({
   host: keys.redisHost,
   port: keys.redisPort,
