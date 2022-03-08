@@ -10,19 +10,19 @@ services:
       - '3000:80'
   api:
     image: {{DOCKER_ID}}/multi-server:latest
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - PGUSER=postgres
-      - PGHOST=postgres
-      - PGDATABASE=postgres
-      - PGPASSWORD={{PG_PASSWORD}}
-      - PGPORT=5432
+    #environment:
+    #  - REDIS_HOST=redis
+    #  - REDIS_PORT=6379
+    #  - PGUSER=postgres
+    #  - PGHOST=postgres
+    #  - PGDATABASE=postgres
+    #  - PGPASSWORD={{PG_PASSWORD}}
+    #  - PGPORT=5432
   client:
     stdin_open: true
     image: {{DOCKER_ID}}/multi-client:latest    
   worker:
     image: {{DOCKER_ID}}/multi-worker:latest
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+    #environment:
+    #  - REDIS_HOST=redis
+    #  - REDIS_PORT=6379
