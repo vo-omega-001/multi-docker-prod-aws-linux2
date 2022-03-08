@@ -9,7 +9,9 @@ services:
     ports:
       - '3000:80'
   api:
-    image: {{DOCKER_ID}}/multi-server:latest
+    image: {{DOCKER_ID}}/multi-server:latest    
+    env_file:
+        - .env
     #environment:
     #  - REDIS_HOST=redis
     #  - REDIS_PORT=6379
@@ -23,6 +25,8 @@ services:
     image: {{DOCKER_ID}}/multi-client:latest    
   worker:
     image: {{DOCKER_ID}}/multi-worker:latest
+    env_file:
+        - .env
     #environment:
     #  - REDIS_HOST=redis
     #  - REDIS_PORT=6379

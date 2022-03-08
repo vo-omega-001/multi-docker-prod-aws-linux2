@@ -10,7 +10,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 console.log("POSTGRES_PARAMS:\nuser: "+keys.pgUser+"\nhost: "+keys.pgHost+"\nport: "+keys.pgPort+"\ndb: "+keys.pgDatabase+"\npwd: "+keys.pgPassword );
-console.log("REDI_PARAMS:\nhost: "+keys.redisHost+"\nport: "+keys.redisPort+"\n");
+console.log("REDIS_PARAMS:\nhost: "+keys.redisHost+"\nport: "+keys.redisPort+"\n");
 
 // Postgres Client Setup
 const { Pool } = require('pg');
