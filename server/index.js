@@ -9,8 +9,14 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-console.log("POSTGRES_PARAMS:\nuser: "+keys.pgUser+"\nhost: "+keys.pgHost+"\nport: "+keys.pgPort+"\ndb: "+keys.pgDatabase+"\npwd: "+keys.pgPassword );
-console.log("REDIS_PARAMS:\nhost: "+keys.redisHost+"\nport: "+keys.redisPort+"\n");
+console.log("\n\n###############################################################");
+console.log("###] MULTI-DOCKER-SERVER Configuration:[###");
+console.log("###########################################");
+console.log("\nPOSTGRES_PARAMS:\nDataBase: "+keys.pgDatabase
+                                 +"\nUser: "+keys.pgUser+"\nPassword: "+keys.pgPassword
+                                 +"\nHost: "+keys.pgHost+"\nPort: "+keys.pgPort );
+console.log("\nREDIS_PARAMS:\nhost: "+keys.redisHost+"\nport: "+keys.redisPort+"\n");
+console.log("###############################################################\n\n");
 
 // Postgres Client Setup
 const { Pool } = require('pg');
