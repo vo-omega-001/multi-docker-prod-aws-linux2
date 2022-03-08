@@ -5,26 +5,26 @@ services:
       - api
       - client
     restart: always
-    image: {{DOCKER_ID}}/multi-nginx:latest
+    image: {{DOCKER_ID}}/multi-nginx:{{TRAVIS_BUILD_NUMBER}}
     ports:
       - '3000:80'
   api:
-    image: {{DOCKER_ID}}/multi-server:latest    
+    image: {{DOCKER_ID}}/multi-server:{{TRAVIS_BUILD_NUMBER}}    
     env_file:
         - .env
     #environment:
     #  - REDIS_HOST=redis
     #  - REDIS_PORT=6379
-    #  - PGUSER=postgres
     #  - PGHOST=postgres
+    #  - PGPORT=5432     
     #  - PGDATABASE=postgres
+    #  - PGUSER={{PG_USER}}   
     #  - PGPASSWORD={{PG_PASSWORD}}
-    #  - PGPORT=5432
   client:
     stdin_open: true
-    image: {{DOCKER_ID}}/multi-client:latest    
+    image: {{DOCKER_ID}}/multi-client:{{TRAVIS_BUILD_NUMBER}}    
   worker:
-    image: {{DOCKER_ID}}/multi-worker:latest
+    image: {{DOCKER_ID}}/multi-worker:{{TRAVIS_BUILD_NUMBER}}
     env_file:
         - .env
     #environment:
