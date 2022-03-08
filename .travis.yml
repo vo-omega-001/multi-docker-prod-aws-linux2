@@ -5,6 +5,9 @@ services:
   - docker
 
 before_install:
+  - uname -r
+  - cat /etc/os-release
+  - pwd
   - docker build -t ${DOCKER_ID}/react-test -f ./client/Dockerfile.dev ./client
 
 script:
@@ -23,8 +26,7 @@ after_success:
   - docker push ${DOCKER_ID}/multi-server
   - docker push ${DOCKER_ID}/multi-worker
   # Update docker-compose.yml production file
-  - pwd
-  - sed -i "s/{{PG_PASSWORD}}/${PG_PASSWORD}/g" docker-compose.yml
+  #- sed -i "s/{{PG_PASSWORD}}/${PG_PASSWORD}/g" docker-compose.yml
   - sed -i "s/{{DOCKER_ID}}/${DOCKER_ID}/g" docker-compose.yml
 
 deploy:
